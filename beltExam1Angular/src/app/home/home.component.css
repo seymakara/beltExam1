@@ -1,0 +1,7 @@
+.pet_table, th{
+    margin: auto;
+    border: 1px solid black;
+}
+td, th {
+    align-content: right;
+}

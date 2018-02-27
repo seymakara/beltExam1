@@ -1,0 +1,12 @@
+<a href [routerLink] = "['/home']"> Home </a>
+<h3>Details about {{thePet.name}}</h3>
+<p>Pet type: {{thePet.type}}</p>
+<p>Description: {{thePet.description}}</p>
+<p *ngIf="thePet.skill1">Skill1: {{thePet.skill1}}</p>
+<p *ngIf="thePet.skill2">Skill2: {{thePet.skill2}}</p>
+<p *ngIf="thePet.skill3">Skill3: {{thePet.skill3}}</p>
+
+<p>Likes: {{thePet.likes}}</p>
+<button *ngIf = "showlike" (click) = "like()">Like this pet</button>
+<button *ngIf = "!showlike" disabled = true>Like this pet</button>
+<button (click) = "deletePet()" [routerLink] = "['/home']" >Adopt this pet!</button>

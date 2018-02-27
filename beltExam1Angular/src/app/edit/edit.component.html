@@ -1,0 +1,52 @@
+<a href [routerLink] = "['/home']"> Home </a>
+<h3>Edit this pet </h3>
+
+<!-- NAME VALIDATION -->
+<!-- <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+    <div *ngIf="name.errors.required">
+        Name is required.
+    </div>
+    <div *ngIf="name.errors.minlength">
+        Name must be at least 3 characters long.
+    </div>
+</div> -->
+
+<!-- TYPE VALIDATION -->
+<!-- <div *ngIf="type.invalid && (type.dirty || type.touched)" class="alert alert-danger">
+    <div *ngIf="type.errors.required">
+        Type is required.
+    </div>
+    <div *ngIf="type.errors.minlength">
+        Type must be at least 3 characters long.
+    </div>
+</div> -->
+
+<!-- DESCRIPTION VALIDATION -->
+<!-- <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+    <div *ngIf="description.errors.required">
+        Description is required.
+    </div>
+    <div *ngIf="description.errors.minlength">
+        Description must be at least 3 characters long.
+    </div>
+</div> <br><br> -->
+
+Pet name: <input type="text" name= "name" required minlength="3" [(ngModel)] = "thePet.name" #name = "ngModel"/><br><br>
+Pet type: <input type="text" name= "type" required minlength="3" [(ngModel)] = "thePet.type" #type = "ngModel"/><br><br>
+Description: <input type="text" name= "description" required minlength="3" [(ngModel)] = "thePet.description" #description = "ngModel"/><br><br>
+
+<!-- Error message -->
+<p *ngIf="validationError.name">{{validationError.name.message | json}}</p>
+<p *ngIf="validationError.description">{{validationError.description.message | json}}</p>
+<p *ngIf="validationError.type">{{validationError.type.message | json}}</p>
+
+<p>Skills (Optional):</p>
+Skill 1: <input type="text" name= "thePet.skill1" [(ngModel)] = "thePet.skill1"><br><br>
+Skill 2: <input type="text" name= "thePet.skill2" [(ngModel)] = "thePet.skill2"><br><br>
+Skill 3: <input type="text" name= "thePet.skill3" [(ngModel)] = "thePet.skill3"><br><br>
+<input type="button" value="Update pet" (click) = "updatePet()">
+
+<!-- <input *ngIf="!(description.errors || type.errors || name.errors)" type="button" value="Add pet" (click) = "updatePet()" > 
+<input *ngIf="(description.errors || type.errors || name.errors)" type="button" value="Add pet" disabled = true> -->
+<button value="Cancel" [routerLink] = "['/home']">Cancel</button>
+
