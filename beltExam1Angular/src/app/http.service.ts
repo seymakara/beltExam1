@@ -20,7 +20,13 @@ export class HttpService {
   };
 
   editPet(thePetID, pet) {
+    console.log("EDITPET",pet)
     return this._http.put(`/pets/${thePetID}`, pet)
+  };
+
+  editPetLike(thePetID, pet) {
+    console.log("editPetLike works")
+    return this._http.put(`/pets/${thePetID}/like`, pet)
   };
   
   deletePet(thePetID) {

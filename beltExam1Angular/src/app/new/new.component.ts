@@ -23,11 +23,15 @@ export class NewComponent implements OnInit {
     let observable = this._httpService.addPet(this.newPet);
     observable.subscribe(data => {
       let pet = data as any;
-      console.log(pet);
       if (pet.message === "Error") {
-        console.log("pet.error var")
-        this.validationError = pet.error.errors;
-        console.log("VALIDATIONERROR", this.validationError)
+        if(pet.error.errors){
+          this.validationError = pet.error.errors;
+        }
+        else if(pet.error.code === 11000){
+          this.validationError = {name:{message:"Name should be unique"}}  // this makes this.validationError a map, too
+          // this.validationError.type = {message:"Type in bozuk"}
+          // this.validationError["description"] = {message:"Desc in bozuk"}
+        }
       }
       else {
        this.router.navigate(['/home']);

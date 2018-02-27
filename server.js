@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost/beltExam1');
 mongoose.Promise = global.Promise;
 
 let PetSchema = new mongoose.Schema({
-    name: {type: String, required: true, unique: [true, "Pet already exists!"], uniqueCaseInsensitive: true, minlength: [3, "Pet name needs to be greater than 3 characters!"]},
+    name: {type: String, required: true, unique: true, uniqueCaseInsensitive: true, minlength: [3, "Pet name needs to be greater than 3 characters!"]},
     type: {type: String, required: true, minlength: [3, "Pet type needs to be greater than 3 characters!"]},
     description: {type: String, required: true, minlength: [3, "Pet description needs to be greater than 3 characters!"]},
     skill1: {type: String, required: false},
@@ -26,7 +26,7 @@ let PetSchema = new mongoose.Schema({
     likes: {type: Number, default: 0},
 }, {timestamps: true});
 
-PetSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.'});
+// PetSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.'});
 
 mongoose.model('Pet',PetSchema); 
 let Pet = mongoose.model('Pet')
@@ -74,6 +74,7 @@ app.get('/pets/:id', function(req, res){
 })
 
 app.put("/pets/:id", function(req, res) {
+    console.log("PUTWORKS", req.body)
     var pet = {};
     pet.name = req.body.name;
     pet.type = req.body.type;
@@ -83,7 +84,9 @@ app.put("/pets/:id", function(req, res) {
     pet.skill3 = req.body.skill3;
     pet.likes = req.body.likes;
 
-    console.log("Likes in the Server!", req.body.likes)
+
+    console.log("PUT /pets/:id PET ",pet)
+    console.log("PUT /pets/:id id ",req.params.id)
 
     Pet.update({_id: req.params.id}, pet, { runValidators: true}, function (err, results) { // don't forget to add { runValidators: true}
         if(err){
@@ -93,6 +96,23 @@ app.put("/pets/:id", function(req, res) {
         else {
             console.log('successfully updated the pet', results);
             res.json({message: "Update success", results});
+        }
+    });
+
+});
+
+app.put("/pets/:id/like", function(req, res) {
+
+    console.log("Likes in the Server!", req.body.likes)
+
+    Pet.update({_id: req.params.id}, req.body, function (err, results) {
+        if(err){
+            console.log("Returned error", err);
+            res.json({message: "Like Update error", error: err})
+        }
+        else {
+            console.log('successfully updated the pet', results);
+            res.json({message: "Like Update success", results});
         }
     });
 

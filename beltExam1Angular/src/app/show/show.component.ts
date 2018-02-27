@@ -44,7 +44,9 @@ export class ShowComponent implements OnInit {
   };
 
   updatePet(){
-    let observable = this._httpService.editPet(this.petID, this.thePet);
+    console.log("hello updatePet")
+    console.log("hello updatePet", this.thePet)
+    let observable = this._httpService.editPetLike(this.petID, this.thePet);
     observable.subscribe(data => {
       console.log("Editing pet!", data);
       // this._router.navigate(['/home']);

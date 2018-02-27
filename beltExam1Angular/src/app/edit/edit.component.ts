@@ -35,13 +35,16 @@ export class EditComponent implements OnInit {
   updatePet(){
     let observable = this._httpService.editPet(this.petID, this.thePet);
       observable.subscribe(data => {
-        console.log("Editing pet!", data);
         let pet = data as any;
-        console.log(pet);
         if (pet.message === "Update error") {
-          console.log("pet.error var")
-          this.validationError = pet.error.errors;
-          console.log(this.validationError)
+          if(pet.error.errors){
+            this.validationError = pet.error.errors;
+          }
+          else if(pet.error.code === 11000){
+            this.validationError = {name:{message:"Name should be unique"}}  // this makes this.validationError a map, too
+            // this.validationError.type = {message:"Type in bozuk"}
+            // this.validationError["description"] = {message:"Desc in bozuk"}
+          }
         }
         else {
           this._router.navigate([`/details/${this.petID}`]);
